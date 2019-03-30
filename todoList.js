@@ -5,7 +5,6 @@ var todoList = {
             console.log('Your todo list is empty!')
         } else {
             for (var i = 0; i < this.todos.length; i++) {
-            
             if (this.todos[i].completed === true) {
                 console.log('(x)', this.todos[i].todoText);
             } else {
@@ -19,6 +18,7 @@ var todoList = {
            todoText: todoText,
            completed: false
         });
+        this.displayTodos();
     },
     changeTodo: function(position, newValue) {
         this.todos[position] = newValue;
@@ -26,6 +26,34 @@ var todoList = {
     },
     deleteTodo: function(position) {
         this.todos.splice(position, 1)
+        this.displayTodos();
+    },
+    toggleCompleted: function(position) {
+      var todo = this.todos[position];
+      todo.completed = !todo.completed;
+      this.displayTodos();
+    },
+    toggleAll: function() {
+        var totalTodos = this.todos.length;
+        var completedTodos = 0;
+        
+        //get number of completed todos
+        for (var i = 0; i < totalTodos; i++) {
+            if (this.todos[i].completed == true) {
+                completedTodos == totalTodos++;
+            }
+        }
+        // case: 1 f everything's true, making everything false 
+        if (completedTodos == totalTodos) {
+            for (var i = 0; i < totalTodos; i++) {
+                this.todos[i].completed = false;
+            }
+                //Case 2: otherwise, make everything true.
+            } else { 
+                for (var i = 0; i < totalTodos; i++) {
+                    this.todos[i].completed = true;
+                }
+        }
         this.displayTodos();
     }
 };
